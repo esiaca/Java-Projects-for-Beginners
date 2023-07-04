@@ -14,16 +14,19 @@ public class NumberGuessing {
         System.out.println("A number is chosen between 1 to " + gui + ". Guess the number within " + num + " trials." );
 
         for (i = 0; i < num; i++) {
-            System.out.println("Guess the number:");
+            System.out.println("Guess the number between 1 and "+gui+":");
             guess = sc.nextInt(); //Input-3
-
+            System.out.println("On attempt #"+(i+1)+" of "+num+" you learn...");
+            
             if (number == guess) {
-                System.out.println("Congratulations! You guessed the number in " + i + " attempts" );
+                System.out.println("Congratulations! You guessed the number in " + (i+1) + " attempts" );
                 break;
             } else if (number > guess && i != num - 1) {
-                System.out.println("The number is greater than " + guess );
+                System.out.println("The number is greater than " + guess + 
+                		", you are "+ GuessTemp(guess, number, gui)+".");
             } else if (number < guess && i != num - 1) {
-                System.out.println("The number is less than " + guess );
+                System.out.println("The number is less than " + guess + 
+                		", you are "+ GuessTemp(guess, number, gui)+".");
             }
         }
 
@@ -34,6 +37,19 @@ public class NumberGuessing {
 
     }
 
+    private static String GuessTemp(int g, int n, int m) {
+    	int warmrange = m/9;
+    	int hotrange = m/20;
+    	int range = Math.abs(g-n);
+    	if (range <= hotrange) {
+    		return "hot";
+    	} else if (range <= warmrange) {
+    		return "warm";
+    	} else {
+    		return "cold";
+    	}
+    }
+    
     public static void main(String[] args) {
         {
             guessingNumberGame();
